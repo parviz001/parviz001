@@ -1,0 +1,186 @@
+Lab 15.1
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int N, temp;
+    cout<< "Введите количество элементов";
+    cin >> N;
+    
+    int*A= new int [N];
+    int*B= new int [N];
+    
+    cout<< "Введите "<< N << "элементов для массива A: ";
+    for (int i=0; i<N; i++) {
+        cin>> A[i];
+    }
+    cout<< "Введите "<< N << "элементов для массива B: ";
+    for (int i=0;i<N ; i++) {
+        cin>> B[i];
+    }
+     for (int i=0;i<N;i++) {
+         temp = A [i];
+         A[i] = B [i];
+     }
+     cout<< "Новый массив A: ";
+     for (int i=0;i<N; i++) {
+        cout << A[i] << "   ";
+     }
+     cout << endl;
+      cout<< "Новый массив B: ";
+     for (int i=0;i<N;i++) {
+     cout << B[i] << " ";
+     }
+     delete [] A;
+     delete [] B;
+}
+Lab 15.2
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int N;
+    double sum=0;
+    cout<< "Введите количество элементов";
+    cin >> N;
+    
+    int*A= new int [N];
+    double*B= new double [N];
+    
+    cout<< "Введите "<< N << "элементов для массива A: ";
+    for (int i=0; i<N; i++) {
+        cin>> A[i];
+    }
+    
+    for (int i=0;i<N ; i++) {
+        for (int j=0;j<i+1;j++) {
+            sum=sum+ A[j];
+        }
+        B[i]= sum / (i+1);
+        sum=0;
+    }
+     cout<< " Массив B: ";
+     for (int i=0;i<N; i++) {
+        cout << B[i] << "   ";
+     }
+     cout << endl;
+     
+     delete [] A;
+     delete [] B;
+     
+     return 0;
+}
+Lab 15.3
+
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int N,lastEvenElem=0;
+    cout<< "Введите количество элементов";
+    cin >> N;
+    
+    int*A= new int [N];
+    
+    
+    cout<< "Введите "<< N << "элементов для массива A: ";
+    for (int i=0; i<N; i++) {
+        cin>> A[i];
+    }
+     // Находим последний нечетный элемент 
+    for (int i=0;i<N ; i++) {
+        if (A[i] % 2 !=0) {
+             lastEvenElem = A[i];
+        }
+    }
+    
+    for (int i=0;i<N ; i++) {
+        if (A[i] % 2 !=0) {
+            A[i]= A[i] + lastEvenElem;
+        }
+    }    
+     cout<< " Массив A: ";
+     for (int i=0;i<N; i++) {
+        cout << A[i] << "   ";
+     }
+     cout << endl;
+     
+     delete [] A;
+     
+     return 0;
+}
+Lab 15.4
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int N;
+    cout<< "Введите длину массива: ";
+    cin >> N;
+    
+    int*A= new int [N];
+    
+    
+    cout<< "Введите элементы  массива:  ";
+    for (int i=0; i<N; i++) {
+        cin>> A[i];
+    }
+     int minEl= A[0], maxEl = A[0], maxIndex = 0, minIndex = 0;
+     // Находим мин и макс элементов 
+    for (int i=0;i<N ; i++) {
+        if (A[i] > maxEl) {
+             maxEl = A[i];
+             maxIndex = i;
+        }
+        if (A[i] < maxEl) {
+             maxEl = A[i];
+             minIndex = i;
+        }
+    }
+    
+    for (int i= minIndex + 1; i < maxIndex; i++) {
+         A[i] = 0 ;
+    }    
+     cout<< " Новые элементы массива: ";
+     for (int i=0;i<N; i++) { // Вывод массива на экран
+        cout << A[i] << "   ";
+    }
+}
+Lab 15.5
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int N;
+    cout<< "Введите длину массива: ";
+    cin >> N;
+    
+    int*A= new int [N];
+    
+    
+    cout<< "Введите элементы  массива:  ";
+    for (int i=0; i<N; i++) {
+        cin>> A[i];
+    }
+    
+    for (int i=1; i<N ; i++) {
+        if (A[i-1] > A[i]) {
+             swap(A[i-1], A[i]); // Функция, которая меняет элементы местами
+        }
+    }
+
+     cout<< " Новые элементы массива: ";
+     for (int i=0;i<N; i++) { // Вывод массива на экран
+        cout << A[i] << "   "<< endl;
+    }
+}
