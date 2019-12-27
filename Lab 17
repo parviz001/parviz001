@@ -1,0 +1,258 @@
+Lab 17.1
+
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int main() {
+   int N, prev, cur, len = 1;
+   cout<< "введите длину ";
+   cin >> N;
+
+   int* A = new int [N];
+   vector<int> B, C;
+
+   cout<< "введите массив длины "<< N <<endl;
+   for (int i =0; i< N; i++) {
+       cin >> A[i];
+   }
+   prev = A[0];
+
+   for (int i = 1; i < N; i++) {
+       cur = A[i];
+       if (prev == cur) {
+           len++;
+       } else {
+           B.push_back(len);
+           C.push_back(prev);
+
+           len = 1;
+       }
+       prev = cur;
+   }
+   B.push_back(len);
+   C.push_back(cur);
+
+   cout<< "массив В:";
+   for (int i =0; i< B.size(); i++) {
+       cout << B[i] << ' ';
+   }
+
+   cout<<endl<< "массив C:";
+   for (int i =0; i< C.size(); i++) {
+       cout << C[i] << ' ';
+   }
+   return 0;
+}
+
+Lab 17.2
+
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int main() {
+   int N, prev, cur, len = 1, L;
+
+   cout<< "введите число L ";
+   cin >> L;
+
+   cout<< "введите длину ";
+   cin >> N;
+
+   int* A = new int [N];
+   vector<int> B;
+
+   cout<< "введите массив длины "<< N <<endl;
+   for (int i =0; i< N; i++) {
+       cin >> A[i];
+   }
+   prev = A[0];
+
+   for (int i = 1; i < N; i++) {
+       cur = A[i];
+       if (prev == cur) {
+           len++;
+       } else {
+           if ( len > L) {
+               B.push_back(0);
+           } else {
+               for (int j = 0; j < len; j++) {
+                   B.push_back(prev);
+               }
+           }
+           len = 1;
+       }
+       prev = cur;
+   }
+   if (len > L) {
+      B.push_back(0);
+   } else {
+       for (int j = 0; j < len; j++) {
+           B.push_back(prev);
+       }
+   }
+
+
+   cout<< "массив В:";
+   for (int i =0; i< B.size(); i++) {
+       cout << B[i] << ' ';
+   }
+
+   return 0;
+}
+
+Lab 17.3
+
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int main() {
+   int N, prev, cur, len = 1, K, need;
+   cout<< "введите K ";
+   cin >> K;
+   cout<< "введите длину ";
+   cin >> N;
+
+   int* A = new int [N];
+   vector<int> Anew, B, C;
+
+   cout<< "введите массив длины "<< N <<endl;
+   for (int i =0; i< N; i++) {
+       cin >> A[i];
+   }
+   prev = A[0];
+
+   for (int i = 1; i < N; i++) {
+       cur = A[i];
+       if (prev == cur) {
+           len++;
+       } else {
+           B.push_back(len);
+           C.push_back(prev);
+
+           len = 1;
+       }
+       prev = cur;
+   }
+   B.push_back(len);
+   C.push_back(cur);
+
+   swap(B[K], B[B.size() -1]); // меняем местами Kый элемент и последний
+   swap(C[K], C[C.size() -1]);
+
+   for (int i =0; i< B.size(); i++) {
+       for (int j =0; j< B[i]; j++) {
+           Anew.push_back(C[i]);
+       }
+   }
+
+   cout<< "новый массив A:";
+   for (int i =0; i< N; i++) {
+       cout << Anew[i] << ' ';
+   }
+
+   return 0;
+}
+
+Lab 17.4
+
+#include <iostream>
+
+using namespace std;
+
+struct Point {
+   int x;
+   int y;
+};
+
+int main() {
+   int N, max = 0, len;
+   Point maxP{0,0}; // наиболее удаленная точка
+   cout<< "введите количество точек ";
+   cin >> N;
+
+   Point* A = new Point [N]; //одномерный массив
+
+   cout<< "введите точки "<<endl;
+   for (int i =0; i< N; i++) {
+       cin >> A[i].x >> A[i].y;
+   }
+
+   for (int i =0; i< N; i++) {
+       if (A[i].x < 0 && A[i].y < 0) { //принадлежность ко 2 четверти
+           len = (A[i].x * A[i].x) + (A[i].y * A[i].y); //находим расстояние до начала координат
+           if (len > max) {
+               max = len;
+               maxP = A[i];
+           }
+       }
+   }
+
+   cout << "самая удаленная точка: " << "(" << maxP.x << ", " << maxP.y << ")"<< endl;
+
+   cout<<endl<<endl;
+
+   return 0;
+}
+
+Lab 17.5
+
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+struct Point {
+   int x;
+   int y;
+};
+
+double len(Point A, Point B) {
+   return sqrt((A.x - B.x)*(A.x - B.x) + (A.y - B.y)*(A.y - B.y));
+}
+
+double perimeter(Point A, Point B, Point C) {
+   return len(A,B) + len(B,C) + len(A,C);
+}
+
+int main() {
+   int N;
+   double max = 0, cur;
+   Point B, C, D;
+   cout<< "введите количество точек ";
+   cin >> N;
+
+   Point* A = new Point [N]; //одномерный массив
+
+   cout<< "введите точки "<<endl;
+   for (int i =0; i< N; i++) {
+       cin >> A[i].x >> A[i].y;
+   }
+
+   for (int i =0; i< N; i++) {
+       for (int j = i + 1; j< N; j++) {
+           for (int k = j + 1; k< N; k++) {
+               cur = perimeter(A[i], A[j], A[k]);
+               if (cur > max) {
+                   max = cur;
+                   B = A[i];
+                   C = A[j];
+                   D = A[k];
+               }
+           }
+       }
+   }
+
+   cout << "1 точка треугольника: " << "(" << B.x << ", " << B.y << ")"<< endl;
+   cout << "2 точка треугольника: " << "(" << C.x << ", " << C.y << ")"<< endl;
+   cout << "3 точка треугольника: " << "(" << D.x << ", " << D.y << ")"<< endl;
+
+   cout<<endl<<endl;
+
+   return 0;
+}
